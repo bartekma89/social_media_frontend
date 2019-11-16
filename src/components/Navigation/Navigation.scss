@@ -1,0 +1,31 @@
+$black: #000;
+$bg-dark-color: #343a40;
+
+.nav-position {
+  z-index: 2;
+  width: 100%;
+
+  @media (max-width: 575px) {
+      .nav-position {
+          background-color: $bg-dark-color;
+      }
+  }
+}
+
+.bg-black {
+    background-color: $black;
+}
+
+.bg-transparent {
+    animation-name: blackToTransparent;
+    animation-duration: 0.2s
+}
+
+@keyframes blackToTransparent {
+    from {
+        background-color: $black;
+    }
+    to {
+        background-color: transparent
+    }
+}
