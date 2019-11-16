@@ -105,19 +105,17 @@ export const deleteExperience = (id) => async (dispatch) => {
 };
 
 export const deleteAccount = () => async (dispatch) => {
-  if (window.confirm('Are you sure? This can not be undone ')) {
-    await dispatch(
-      actionCreatorFactory(ACTIONS.CLEAR_PROFILE, {
-        url: 'http://localhost:8080/profile',
-        method: 'delete'
-      })
-    );
+  localStorage.removeItem('token');
 
-    dispatch({ type: `${ACTIONS.GET_PROFILE}_RESET` });
-    dispatch({
-      type: ACTIONS.ACCOUNT_DELETE
-    });
+  await dispatch(
+    actionCreatorFactory(ACTIONS.CLEAR_PROFILE, {
+      url: 'http://localhost:8080/profile',
+      method: 'delete'
+    })
+  );
 
-    dispatch(setAlert('Your account has been destroyed forever !!!'));
-  }
+  dispatch({ type: `${ACTIONS.GET_PROFILE}_RESET` });
+  dispatch({
+    type: ACTIONS.ACCOUNT_DELETE
+  });
 };

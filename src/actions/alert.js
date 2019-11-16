@@ -1,9 +1,9 @@
-import uuid from "uuid";
-import { delay } from "lodash";
+import uuid from 'uuid';
+import { delay } from 'lodash';
 
-import { ACTIONS } from "./type";
+import { ACTIONS } from './type';
 
-export const setAlert = (msg, alertType, timeout = 10000) => dispatch => {
+export const setAlert = (msg, alertType, timeout = 5000) => (dispatch) => {
   const id = uuid.v4();
   dispatch({
     type: ACTIONS.SET_ALERT,

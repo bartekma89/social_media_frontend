@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { isNil, get, isEmpty } from 'lodash';
 import { object, bool, func } from 'prop-types';
-import { Button } from 'reactstrap';
 
 import { getCurrentProfile, deleteAccount } from '../../actions/profile';
 import {
@@ -18,6 +17,7 @@ import DashboardActions from './components/DashboardActions.component';
 import Alert from '../../components/Alert/Alert.component';
 import Education from './components/Education.component';
 import Experience from './components/Experience.component';
+import ProfileDelete from './components/ProfileDelete.component';
 
 import './Dashboard.scss';
 
@@ -49,7 +49,7 @@ const Dashboard = ({
           <Alert />
           <h1 className="large text-primary">Dashboard</h1>
           {!isNil(user) && (
-            <p className="lead mt-3 mb-2">Welcome {user.username}</p>
+            <p className="lead mt-3 mb-2">Welcome {get(user, 'username')}</p>
           )}
           {isNil(profileData) ? (
             <NoProfile error={errorMessage} />
@@ -58,9 +58,11 @@ const Dashboard = ({
               <DashboardActions />
               {!isEmpty(education) && <Education education={education} />}
               {!isEmpty(experience) && <Experience experience={experience} />}
-              <Button color="danger" onClick={() => deleteAccount()}>
-                Delete Account
-              </Button>
+
+              <ProfileDelete
+                userName={get(user, 'username')}
+                handleDeleteProfile={deleteAccount}
+              />
             </>
           )}
         </LoadingWrapper>
@@ -90,7 +92,4 @@ Dashboard.propTypes = {
   deleteAccount: func
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Dashboard);
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
