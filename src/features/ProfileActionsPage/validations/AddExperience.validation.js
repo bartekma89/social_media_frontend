@@ -3,7 +3,7 @@ import * as yup from 'yup';
 const AddExperienceFormSchema = yup.object().shape({
   company: yup.string().required('Required'),
   title: yup.string().required('Required'),
-  location: yup.string().notRequired(),
+  location: yup.string().required('Required'),
   from: yup
     .date()
     .when(

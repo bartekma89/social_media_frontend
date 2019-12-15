@@ -2,18 +2,16 @@ import React, { useState } from 'react';
 import { Form, Field, ErrorMessage } from 'formik';
 import {
   Button,
-  NavLink,
   Input,
   Label,
   FormGroup,
   FormText,
   FormFeedback
 } from 'reactstrap';
-import { Link } from 'react-router-dom';
-import * as Icon from 'react-feather';
+import { Twitter, Linkedin, Facebook, Instagram, Youtube } from 'react-feather';
 import { object } from 'prop-types';
 
-const ProfileForm = ({ errors, touched }) => {
+const ProfileForm = ({ errors, touched, history }) => {
   const [displaySocialInputs, toggleDispalySocialInputs] = useState(false);
 
   const onToggleDispalySocialInputs = () =>
@@ -156,7 +154,7 @@ const ProfileForm = ({ errors, touched }) => {
       {displaySocialInputs && (
         <FormGroup>
           <div className="d-flex my-2">
-            <Icon.Twitter color="lightblue" size={42} className="mr-3" />
+            <Twitter color="lightblue" size={42} className="mr-3" />
             <Input
               tag={Field}
               type="text"
@@ -173,7 +171,7 @@ const ProfileForm = ({ errors, touched }) => {
             className="d-block error-label"
           />
           <div className="d-flex my-2">
-            <Icon.Facebook color="blue" size={42} className="mr-3" />
+            <Facebook color="blue" size={42} className="mr-3" />
             <Input
               tag={Field}
               type="text"
@@ -190,7 +188,7 @@ const ProfileForm = ({ errors, touched }) => {
             className="d-block error-label"
           />
           <div className="d-flex my-2">
-            <Icon.Youtube color="red" size={42} className="mr-3" />
+            <Youtube color="red" size={42} className="mr-3" />
             <Input
               tag={Field}
               type="text"
@@ -207,7 +205,7 @@ const ProfileForm = ({ errors, touched }) => {
             className="d-block error-label"
           />
           <div className="d-flex my-2">
-            <Icon.Linkedin color="lightblue" size={42} className="mr-3" />
+            <Linkedin color="lightblue" size={42} className="mr-3" />
             <Input
               tag={Field}
               type="text"
@@ -224,7 +222,7 @@ const ProfileForm = ({ errors, touched }) => {
             className="d-block error-label"
           />
           <div className="d-flex my-2">
-            <Icon.Instagram color="brown" size={42} className="mr-3" />
+            <Instagram color="brown" size={42} className="mr-3" />
             <Input
               tag={Field}
               type="text"
@@ -248,16 +246,15 @@ const ProfileForm = ({ errors, touched }) => {
       <Button className="mr-2 ml-0" type="reset">
         Reset
       </Button>
-      <NavLink tag={Link} className="d-inline p-0" to="/dashboard">
-        <Button>Go Back</Button>
-      </NavLink>
+      <Button onClick={() => history.goBack()}>Go Back</Button>
     </Form>
   );
 };
 
 ProfileForm.propTypes = {
   errors: object,
-  touched: object
+  touched: object,
+  history: object
 };
 
 export default ProfileForm;

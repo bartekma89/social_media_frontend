@@ -1,10 +1,6 @@
+@import "./_mixins";
+
 .btn-purple {
   background-color: #4555a2;
   border-color: #4555a2
-}
-
-@media (max-width: 576px) {
-  .text-xs-center-custom {
-    text-align: center;
-  }
 }

@@ -1,7 +1,8 @@
-import { ACTIONS } from "../actions/type";
+import { ACTIONS } from '../actions/type';
+import reducerFactory from './generic/reducerFactory';
 
-import reducerFactory from "./generic/reducerFactory";
-
-export const profileReducer = reducerFactory({
+const profileReducer = reducerFactory({
   name: ACTIONS.GET_PROFILE
 });
+
+export default profileReducer;

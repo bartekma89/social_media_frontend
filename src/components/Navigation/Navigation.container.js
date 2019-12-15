@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment } from 'react';
 import {
   Collapse,
   Navbar,
@@ -7,19 +7,19 @@ import {
   Nav,
   NavItem,
   NavLink
-} from "reactstrap";
-import { Link } from "react-router-dom";
-import { withRouter } from "react-router";
-import { connect } from "react-redux";
-import { compose } from "redux";
-import { func, bool } from "prop-types";
+} from 'reactstrap';
+import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { func, bool } from 'prop-types';
 
-import { logout } from "../../actions/auth";
-import { getAuthStatus, getAuthLoading } from "../../selectors";
+import { logout } from '../../actions/auth';
+import { getAuthStatus, getAuthLoading } from '../../selectors';
 
-import "./Navigation.scss";
+import './Navigation.scss';
 
-const Navigation = props => {
+const Navigation = (props) => {
   const [isOpen, setToggle] = useState(false);
 
   const onToggle = () => {
@@ -43,6 +43,11 @@ const Navigation = props => {
 
   const authLinks = (
     <Nav className="ml-auto" navbar>
+      <NavItem>
+        <NavLink tag={Link} to="/profiles" className="nav-link">
+          Developers
+        </NavLink>
+      </NavItem>
       <NavItem onClick={props.logout}>
         <NavLink tag={Link} to="/">
           Logout
@@ -60,22 +65,8 @@ const Navigation = props => {
               DevelopersHub
             </NavbarBrand>
 
-            <NavbarToggler style={{ margin: "0" }} onClick={onToggle} />
+            <NavbarToggler style={{ margin: '0' }} onClick={onToggle} />
             <Collapse isOpen={isOpen} navbar>
-              {props.isAuthenticated && (
-                <ul
-                  className="collapse navbar-collapse"
-                  style={{ marginBottom: "0" }}
-                >
-                  <ul className="navbar-nav mr-auto">
-                    <li>
-                      <NavLink tag={Link} to="/profiles" className="nav-link">
-                        Developers
-                      </NavLink>
-                    </li>
-                  </ul>
-                </ul>
-              )}
               {!props.loading && (
                 <>{props.isAuthenticated ? authLinks : guestLinks}</>
               )}
@@ -94,7 +85,7 @@ Navigation.propTypes = {
   loading: bool
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   isAuthenticated: getAuthStatus(state),
   loading: getAuthLoading(state)
 });
@@ -105,8 +96,5 @@ const mapDispatchToProps = {
 
 export default compose(
   withRouter,
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )
+  connect(mapStateToProps, mapDispatchToProps)
 )(Navigation);

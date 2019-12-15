@@ -10,10 +10,12 @@ import Login from './features/LoginPage/Login.container';
 import Register from './features/RegisterPage/Register.container';
 import Dashboard from './features/DashboardPage/Dashboard.component';
 import PageNotFound from './features/NotFoundPage/PageNotFound.component';
-import CreateProfile from './features/ProfilePage/CreateProfile.container';
-import EditProfile from './features/ProfilePage/EditProfile.container';
-import AddEducation from './features/ProfilePage/AddEducation.container';
-import AddExperience from './features/ProfilePage/AddExperience.container';
+import CreateProfile from './features/ProfileActionsPage/CreateProfile.container';
+import EditProfile from './features/ProfileActionsPage/EditProfile.container';
+import AddEducation from './features/ProfileActionsPage/AddEducation.container';
+import AddExperience from './features/ProfileActionsPage/AddExperience.container';
+import Profiles from './features/ProfilesPage/Profiles.container';
+import Profile from './features/ProfilePage/Profile.container';
 
 import { loadUser } from './actions/auth';
 import { setAuthToken } from './helpers';
@@ -43,6 +45,8 @@ const App = () => {
               <Route path="/edit-profile" component={EditProfile} />
               <Route path="/add-education" component={AddEducation} />
               <Route path="/add-experience" component={AddExperience} />
+              <Route path="/profiles" component={Profiles} />
+              <Route path="/profile/:id" component={Profile} />
               <Route component={PageNotFound} />
             </Switch>
           </Navigation>

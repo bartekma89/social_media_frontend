@@ -2,12 +2,40 @@ import actionCreatorFactory from './generic/actionCreatorFactory';
 import { ACTIONS } from './type';
 import { setAlert } from '../actions/alert';
 
-export const getCurrentProfile = () => async (dispatch) =>
+export const getCurrentProfile = () => async (dispatch) => {
   await dispatch(
     actionCreatorFactory(ACTIONS.GET_PROFILE, {
       url: 'http://localhost:8080/profile/me'
     })
   );
+};
+export const getAllProfiles = () => async (dispatch) => {
+  //TODO: reset or not
+  dispatch({
+    type: `${ACTIONS.GET_PROFILE}_RESET`
+  });
+  await dispatch(
+    actionCreatorFactory(ACTIONS.GET_ALL_PROFILES, {
+      url: 'http://localhost:8080/profile/all'
+    })
+  );
+};
+
+export const getProfileById = (userId) => async (dispatch) => {
+  await dispatch(
+    actionCreatorFactory(ACTIONS.GET_PROFILE, {
+      url: `http://localhost:8080/profile/user/${userId}`
+    })
+  );
+};
+
+export const getGithubRepos = (username) => async (dispatch) => {
+  await dispatch(
+    actionCreatorFactory(ACTIONS.GET_GITHUB_REPOS, {
+      url: `http://localhost:8080/profile/github/${username}`
+    })
+  );
+};
 
 export const createProfile = (formData, history, edit = false) => async (
   dispatch

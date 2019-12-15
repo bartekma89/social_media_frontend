@@ -1,0 +1,24 @@
+@import "../../styles/global.scss";
+
+.profileItem-width {
+  @include breakpoint-sm-dowm {
+    width: 250px;
+    margin: 0 auto;
+  }
+
+  @include breakpoint-md-up {
+    max-width: 100%;
+    margin: 0 auto;
+  }
+  
+  @include breakpoint-lg-up {
+    max-width: 85%;
+    margin: 0 auto;
+  }
+}
+
+.text-center-md-down {
+  @include breakpoint-md-down {
+    text-align: center;
+  }
+}

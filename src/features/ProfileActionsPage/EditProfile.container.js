@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Formik } from 'formik';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
 import { Redirect } from 'react-router-dom';
 import { isNil, get } from 'lodash';
 import { bool, func, object } from 'prop-types';
+import { withRouter } from 'react-router-dom';
 
 import EditProfileFormSchema from './validations/Profile.validation';
 import EditProfileForm from './form/Profile.form';
@@ -93,7 +95,7 @@ const EditProfileContainer = ({
         validationSchema={EditProfileFormSchema}
         onSubmit={(values) => createProfile(values, history, true)}
       >
-        {(props) => <EditProfileForm {...props} />}
+        {(props) => <EditProfileForm {...props} history={history} />}
       </Formik>
     </div>
   );
@@ -118,7 +120,7 @@ EditProfileContainer.propTypes = {
   history: object
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  withRouter
 )(EditProfileContainer);

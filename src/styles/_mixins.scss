@@ -1,0 +1,40 @@
+$sm: 576px;
+$md: 768px;
+$lg: 992px;
+$xl: 1200px;
+
+@mixin breakpoint-sm-dowm {
+  @media (max-width: #{$sm}) {
+    @content;
+  }
+}
+
+@mixin breakpoint-sm-up {
+  @media (min-width: #{$sm}) {
+    @content;
+  }
+}
+
+@mixin breakpoint-md-up {
+  @media (min-width: #{$md}) {
+    @content;
+  }
+}
+
+@mixin breakpoint-md-down {
+  @media (max-width: #{$md}) {
+    @content;
+  }
+}
+
+@mixin breakpoint-lg-up {
+  @media (min-width: #{$lg}) {
+    @content;
+  }
+}
+
+@mixin breakpoint-xl-up {
+  @media (min-width: #{$xl}) {
+    @content;
+  }
+}
