@@ -15,7 +15,7 @@ const ProfileCard = ({ profile }) => {
   const userName = get(user, 'username', '');
 
   return (
-    <div className="mt-3 mb-2 py-3 cardbox">
+    <div className="mt-3 mb-2 py-4 cardbox">
       <img
         className="rounded-circle mb-3"
         src={get(user, 'avatar', '')}

@@ -1,25 +1,15 @@
 import React from 'react';
-import { object } from 'prop-types';
-import { Card, CardTitle, CardText, Badge } from 'reactstrap';
+import { array } from 'prop-types';
 import { isEmpty } from 'lodash';
+import { Card, CardTitle, CardText, Badge } from 'reactstrap';
 
-const ProfileAbout = ({ profile }) => {
-  const { bio, skills } = profile || {};
-
+const ProfileSkills = ({ skills }) => {
   return (
     <>
-      {!isEmpty(bio) && (
+      {!isEmpty(skills) ? (
         <Card className="my-2 cardbox" body>
           <CardTitle>
-            <h3>Bio</h3>
-          </CardTitle>
-          <CardText>{bio}</CardText>
-        </Card>
-      )}
-      {!isEmpty(skills) && (
-        <Card className="my-2 text-center cardbox" body>
-          <CardTitle>
-            <h3>Skills</h3>
+            <h3 className="heading">Skills</h3>
           </CardTitle>
           <CardText>
             {skills.map((skill) => (
@@ -37,13 +27,13 @@ const ProfileAbout = ({ profile }) => {
             ))}
           </CardText>
         </Card>
-      )}
+      ) : null}
     </>
   );
 };
 
-ProfileAbout.propTypes = {
-  profile: object
+ProfileSkills.propTypes = {
+  skills: array
 };
 
-export default ProfileAbout;
+export default ProfileSkills;

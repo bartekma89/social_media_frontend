@@ -9,9 +9,11 @@ import { getProfileById } from '../../actions/profile';
 import { getProfile, getAuth } from '../../selectors';
 import LoadingWrapper from '../../components/LoadingWrapper/LoadingWrapper.component';
 import ProfileCard from './components/ProfileCard.component';
-import ProfileAbout from './components/ProfileAbout.component';
 import ProfileEducation from './components/ProfileEducation.component';
 import ProfileExperience from './components/ProfileExperience.component';
+import ProfileGitHub from './components/ProfileGitHub.component';
+import ProfileBio from './components/ProfileBio.component';
+import ProfileSkills from './components/ProfileSkills.component';
 
 import './ProfilePage.scss';
 
@@ -33,6 +35,9 @@ const ProfileContainer = ({
   const profileData = get(profile, 'data');
   const education = get(profile, 'data.education', []);
   const experience = get(profile, 'data.experience', []);
+  const githubUsername = get(profile, 'data.githubusername', null);
+  const bio = get(profile, 'data.bio');
+  const skills = get(profile, 'data.skills', []);
 
   return (
     <LoadingWrapper active={get(profile, 'fetching')}>
@@ -52,11 +57,13 @@ const ProfileContainer = ({
           )}
         </div>
         <ProfileCard profile={profileData} />
-        <ProfileAbout profile={profileData} />
+        <ProfileBio bio={bio} />
+        <ProfileSkills skills={skills} />
         <Row>
           <ProfileEducation education={education} />
           <ProfileExperience experience={experience} />
         </Row>
+        <ProfileGitHub githubUsername={githubUsername} />
       </div>
     </LoadingWrapper>
   );

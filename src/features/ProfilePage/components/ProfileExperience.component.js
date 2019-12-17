@@ -9,19 +9,19 @@ const ProfileExperience = ({ experience }) => {
   const experienceOrderByTo = orderBy(experience, ['to'], ['desc']);
   return (
     <Col xs="12" md="6" lg="6">
-      <Card className="my-2 cardbox">
+      <Card className="my-2 my-md-0 cardbox" body>
         <CardTitle>
           <h3 className="heading">Experience</h3>
         </CardTitle>
         {!isEmpty(experience) ? (
           experienceOrderByTo.map((elem, index) => (
             <div key={elem._id}>
+              <hr className="m-0" />
               <ExperienceCard experience={elem} />
-              {index !== experience.length - 1 && <hr className="m-0" />}
             </div>
           ))
         ) : (
-          <h4>No education credentials</h4>
+          <h5>No experience credentials</h5>
         )}
       </Card>
     </Col>

@@ -9,19 +9,7 @@ const LoadingWrapper = ({ active, size, children }) => {
   if (active) {
     result = (
       <div className="d-flex justify-content-center">
-        <svg
-          className="loader"
-          width={size}
-          height={size}
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <circle cx="12" cy="12" r="10" />
-        </svg>
+        <svg className="donut" width={size} height={size} />
       </div>
     );
   } else {

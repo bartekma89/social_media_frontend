@@ -15,3 +15,5 @@ export const getProfileError = (state) => get(state, 'profile.error');
 export const getAlert = (state) => get(state, 'alert');
 
 export const getProfiles = (state) => get(state, 'profiles');
+
+export const getGithubRepos = (state) => get(state, 'repos');

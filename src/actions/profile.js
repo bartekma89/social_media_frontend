@@ -29,7 +29,7 @@ export const getProfileById = (userId) => async (dispatch) => {
   );
 };
 
-export const getGithubRepos = (username) => async (dispatch) => {
+export const fetchGithubRepos = (username) => async (dispatch) => {
   await dispatch(
     actionCreatorFactory(ACTIONS.GET_GITHUB_REPOS, {
       url: `http://localhost:8080/profile/github/${username}`

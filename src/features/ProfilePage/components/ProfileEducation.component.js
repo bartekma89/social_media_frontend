@@ -9,19 +9,19 @@ const ProfileEducation = ({ education }) => {
   const educationOrderByTo = orderBy(education, ['to'], ['desc']);
   return (
     <Col xs="12" md="6">
-      <Card className="my-2 cardbox">
+      <Card className="my-2 my-md-0 cardbox" body>
         <CardTitle>
           <h3 className="heading">Education</h3>
         </CardTitle>
         {!isEmpty(education) ? (
           educationOrderByTo.map((elem, index) => (
             <div key={elem._id}>
+              <hr className="m-0" />
               <EducationCard education={elem} />
-              {index !== education.length - 1 && <hr className="m-0" />}
             </div>
           ))
         ) : (
-          <h4>No education credentials</h4>
+          <h5>No education credentials</h5>
         )}
       </Card>
     </Col>
