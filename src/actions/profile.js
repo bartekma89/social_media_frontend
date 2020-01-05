@@ -10,7 +10,6 @@ export const getCurrentProfile = () => async (dispatch) => {
   );
 };
 export const getAllProfiles = () => async (dispatch) => {
-  //TODO: reset or not
   dispatch({
     type: `${ACTIONS.GET_PROFILE}_RESET`
   });

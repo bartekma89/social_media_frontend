@@ -29,7 +29,11 @@ const RepositoryCard = ({ repo }) => {
           </a>
         </h4>
         {!isNil(description) && <p>{description}</p>}
-        {fork && <Badge color="info">Fork</Badge>}
+        {fork && (
+          <Badge className="mr-2" color="info">
+            Fork
+          </Badge>
+        )}
         <Badge className="mr-2" color="dark">
           {repo.private ? 'Private' : 'Public'}
         </Badge>

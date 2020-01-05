@@ -47,7 +47,7 @@ const ProfileItem = ({
                 <Badge
                   key={`${index}_${skill}`}
                   color="info"
-                  className="mr-2 mt-3"
+                  className="mr-2 mt-2 mt-md-0"
                 >
                   {skill}
                 </Badge>

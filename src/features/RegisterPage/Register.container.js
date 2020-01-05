@@ -1,22 +1,23 @@
-import React from "react";
-import { Formik } from "formik";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { compose } from "redux";
-import { func } from "prop-types";
+import React from 'react';
+import { Formik } from 'formik';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { compose } from 'redux';
+import { func, object } from 'prop-types';
+import { withRouter } from 'react-router-dom';
 
-import withAuth from "../../hoc/withAuth.component";
-import { SignupSchema } from "./Register.validation";
-import Register from "./Register.component";
-import { signup } from "../../actions/auth";
+import withAuth from '../../hoc/withAuth.component';
+import { SignupSchema } from './Register.validation';
+import Register from './Register.component';
+import { signup } from '../../actions/auth';
 
-import "./Register.scss";
+import './Register.scss';
 
 const initialValuesForm = {
-  username: "",
-  email: "",
-  password: "",
-  passwordConfirmation: ""
+  username: '',
+  email: '',
+  password: '',
+  passwordConfirmation: ''
 };
 
 const RegisterContainer = ({ signup, history }) => {
@@ -44,11 +45,11 @@ const RegisterContainer = ({ signup, history }) => {
           };
 
           signup(newUser, actions, () => {
-            history.push("/dashboard");
+            history.push('/dashboard');
           });
         }}
       >
-        {props => <Register {...props} />}
+        {(props) => <Register {...props} />}
       </Formik>
       <p className="my-3">
         Alredy have an account ? <Link to="/login">Sign In</Link>
@@ -58,7 +59,8 @@ const RegisterContainer = ({ signup, history }) => {
 };
 
 RegisterContainer.propTypes = {
-  signup: func
+  signup: func,
+  history: object
 };
 
 const mapDispatchToProps = {
@@ -66,9 +68,7 @@ const mapDispatchToProps = {
 };
 
 export default compose(
-  connect(
-    null,
-    mapDispatchToProps
-  ),
+  connect(null, mapDispatchToProps),
+  withRouter,
   withAuth
 )(RegisterContainer);

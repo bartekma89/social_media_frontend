@@ -1,19 +1,17 @@
-import React from "react";
-import { Container, Row, Button, NavLink } from "reactstrap";
-import { Link, Redirect } from "react-router-dom";
-import { connect } from "react-redux";
-import { bool } from "prop-types";
+import React from 'react';
+import { Container, Row, Button, NavLink } from 'reactstrap';
+import { Link, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { bool } from 'prop-types';
 
-import { getAuthStatus, getAuthLoading } from "../../selectors";
-import LoadingWrapper from "../../components/LoadingWrapper/LoadingWrapper.component";
+import withAuth from '../../hoc/withAuth.component';
+import { getAuthLoading } from '../../selectors';
+import LoadingWrapper from '../../components/LoadingWrapper/LoadingWrapper.component';
 
-import "./Landing.scss";
+import './Landing.scss';
 
-const Landing = ({ isAuthenticated, isLoading }) => {
-  if (isAuthenticated) {
-    return <Redirect to="/dashboard" />;
-  }
-
+const Landing = ({ isLoading }) => {
   return (
     <LoadingWrapper active={isLoading}>
       <div className="landing">
@@ -46,13 +44,11 @@ const Landing = ({ isAuthenticated, isLoading }) => {
 };
 
 Landing.propTypes = {
-  isAuthenticated: bool,
   isLoading: bool
 };
 
-const mapStateToProps = state => ({
-  isAuthenticated: getAuthStatus(state),
+const mapStateToProps = (state) => ({
   isLoading: getAuthLoading(state)
 });
 
-export default connect(mapStateToProps)(Landing);
+export default compose(connect(mapStateToProps), withRouter, withAuth)(Landing);

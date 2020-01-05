@@ -1,19 +1,20 @@
-import React from "react";
-import { Formik } from "formik";
-import { connect } from "react-redux";
-import { compose } from "redux";
-import { func } from "prop-types";
+import React from 'react';
+import { Formik } from 'formik';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { func, object } from 'prop-types';
+import { withRouter } from 'react-router-dom';
 
-import withAuth from "../../hoc/withAuth.component";
-import { SigninSchema } from "./Login.validation";
-import Login from "./Login.component";
-import { signin } from "../../actions/auth";
+import withAuth from '../../hoc/withAuth.component';
+import { SigninSchema } from './Login.validation';
+import Login from './Login.component';
+import { signin } from '../../actions/auth';
 
-import "./Login.scss";
+import './Login.scss';
 
 const initialValuesForm = {
-  email: "",
-  password: ""
+  email: '',
+  password: ''
 };
 
 const LoginContainer = ({ signin, history }) => {
@@ -39,18 +40,19 @@ const LoginContainer = ({ signin, history }) => {
           };
 
           signin(login, actions, () => {
-            history.push("/dashboard");
+            history.push('/dashboard');
           });
         }}
       >
-        {props => <Login {...props} />}
+        {(props) => <Login {...props} />}
       </Formik>
     </div>
   );
 };
 
 LoginContainer.propTypes = {
-  signin: func
+  signin: func,
+  history: object
 };
 
 const mapDispatchToProps = {
@@ -58,9 +60,7 @@ const mapDispatchToProps = {
 };
 
 export default compose(
-  connect(
-    null,
-    mapDispatchToProps
-  ),
+  connect(null, mapDispatchToProps),
+  withRouter,
   withAuth
 )(LoginContainer);

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { string, object, func } from 'prop-types';
-import { Link } from 'react-router-dom';
+import { object, func } from 'prop-types';
+import { Link, useParams } from 'react-router-dom';
 import { Button, Row } from 'reactstrap';
 import { get } from 'lodash';
 
@@ -17,14 +17,9 @@ import ProfileSkills from './components/ProfileSkills.component';
 
 import './ProfilePage.scss';
 
-const ProfileContainer = ({
-  match: {
-    params: { id }
-  },
-  getProfileById,
-  profile,
-  auth
-}) => {
+const ProfileContainer = ({ getProfileById, profile, auth }) => {
+  let { id } = useParams();
+
   useEffect(() => {
     getProfileById(id);
   }, [id, getProfileById]);
@@ -70,9 +65,9 @@ const ProfileContainer = ({
 };
 
 ProfileContainer.propTypes = {
-  id: string,
   getProfileById: func,
-  getProfile: object
+  getProfile: object,
+  auth: object
 };
 
 const mapStateToProps = (state) => ({

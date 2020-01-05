@@ -37,6 +37,7 @@ export const signup = (formProps, actionsForm, cb) => async (dispatch) => {
       type: ACTIONS.REGISTER_SUCCESS,
       payload
     });
+
     await dispatch(loadUser());
 
     actionsForm.setSubmitting(false);

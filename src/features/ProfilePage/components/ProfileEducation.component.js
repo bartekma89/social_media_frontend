@@ -14,7 +14,7 @@ const ProfileEducation = ({ education }) => {
           <h3 className="heading">Education</h3>
         </CardTitle>
         {!isEmpty(education) ? (
-          educationOrderByTo.map((elem, index) => (
+          educationOrderByTo.map((elem) => (
             <div key={elem._id}>
               <hr className="m-0" />
               <EducationCard education={elem} />

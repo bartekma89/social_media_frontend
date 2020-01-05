@@ -2,12 +2,11 @@ import React from 'react';
 import { Formik } from 'formik';
 import { connect } from 'react-redux';
 import { func } from 'prop-types';
-import { Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import CreateProfileForm from './form/Profile.form';
 import CreateProfileFormSchema from './validations/Profile.validation';
 import { createProfile } from '../../actions/profile';
-import { getAuthStatus } from '../../selectors';
 
 import './Profile.scss';
 
@@ -27,14 +26,8 @@ const initialValuesForm = {
   instagram: ''
 };
 
-const CreateProfileContainer = ({
-  createProfile,
-  history,
-  isAuthenticated
-}) => {
-  if (!isAuthenticated) {
-    return <Redirect to="/" />;
-  }
+const CreateProfileContainer = ({ createProfile }) => {
+  let history = useHistory();
 
   return (
     <div className="container my-3 custom-container">
@@ -56,10 +49,6 @@ const CreateProfileContainer = ({
   );
 };
 
-const mapStateToProps = (state) => ({
-  isAuthenticated: getAuthStatus(state)
-});
-
 const mapDispatchToProps = {
   createProfile
 };
@@ -68,7 +57,4 @@ CreateProfileContainer.propTypes = {
   createProfile: func
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CreateProfileContainer);
+export default connect(null, mapDispatchToProps)(CreateProfileContainer);

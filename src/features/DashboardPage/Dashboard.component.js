@@ -1,16 +1,10 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
-import { isNil, get, isEmpty } from 'lodash';
-import { object, bool, func } from 'prop-types';
+import { isNil, get, isEmpty, orderBy } from 'lodash';
+import { object, func } from 'prop-types';
 
 import { getCurrentProfile, deleteAccount } from '../../actions/profile';
-import {
-  getProfile,
-  getAuthStatus,
-  getAuthUser,
-  getProfileError
-} from '../../selectors';
+import { getProfile, getAuthUser, getProfileError } from '../../selectors';
 import LoadingWrapper from '../../components/LoadingWrapper/LoadingWrapper.component';
 import NoProfile from './components/NoProfile.component';
 import DashboardActions from './components/DashboardActions.component';
@@ -22,7 +16,6 @@ import ProfileDelete from './components/ProfileDelete.component';
 import './Dashboard.scss';
 
 const Dashboard = ({
-  isAuthenticated,
   getCurrentProfile,
   profile,
   user,
@@ -33,14 +26,12 @@ const Dashboard = ({
     getCurrentProfile();
   }, [getCurrentProfile]);
 
-  if (!isAuthenticated) {
-    return <Redirect to="/" />;
-  }
-
   const errorMessage = get(error, 'profile', null);
   const profileData = get(profile, 'data');
   const education = get(profile, 'data.education', []);
   const experience = get(profile, 'data.experience', []);
+  const educationOrderByTo = orderBy(education, ['to'], ['desc']);
+  const experienceOrderByTo = orderBy(experience, ['to'], ['desc']);
 
   return (
     <div className="container custom-container m-3 mx-auto">
@@ -56,8 +47,12 @@ const Dashboard = ({
           ) : (
             <>
               <DashboardActions />
-              {!isEmpty(education) && <Education education={education} />}
-              {!isEmpty(experience) && <Experience experience={experience} />}
+              {!isEmpty(education) && (
+                <Education education={educationOrderByTo} />
+              )}
+              {!isEmpty(experience) && (
+                <Experience experience={experienceOrderByTo} />
+              )}
 
               <ProfileDelete
                 userName={get(user, 'username')}
@@ -72,7 +67,6 @@ const Dashboard = ({
 };
 
 const mapStateToProps = (state) => ({
-  isAuthenticated: getAuthStatus(state),
   profile: getProfile(state),
   user: getAuthUser(state),
   error: getProfileError(state)
@@ -84,7 +78,6 @@ const mapDispatchToProps = {
 };
 
 Dashboard.propTypes = {
-  isAuthenticated: bool,
   getCurrentProfile: func,
   profile: object,
   error: object,

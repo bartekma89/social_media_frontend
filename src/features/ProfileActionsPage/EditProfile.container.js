@@ -2,15 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { Formik } from 'formik';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { Redirect } from 'react-router-dom';
 import { isNil, get } from 'lodash';
 import { bool, func, object } from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
 import EditProfileFormSchema from './validations/Profile.validation';
 import EditProfileForm from './form/Profile.form';
-import { getAuthStatus, getProfile } from '../../selectors';
+import { getProfile } from '../../selectors';
 import { getCurrentProfile, createProfile } from '../../actions/profile';
+import LoadingWrapper from '../../components/LoadingWrapper/LoadingWrapper.component';
 
 const initialValuesForm = {
   handle: '',
@@ -30,7 +30,6 @@ const initialValuesForm = {
 
 const EditProfileContainer = ({
   profile: { fetching, data },
-  isAuthenticated,
   getCurrentProfile,
   createProfile,
   history
@@ -80,10 +79,6 @@ const EditProfileContainer = ({
     });
   }, [data, fetching]);
 
-  if (!isAuthenticated) {
-    return <Redirect to="/" />;
-  }
-
   return (
     <div className="container my-3 custom-container">
       <h1 className="large text-primary">Edit Your Profile</h1>
@@ -95,14 +90,17 @@ const EditProfileContainer = ({
         validationSchema={EditProfileFormSchema}
         onSubmit={(values) => createProfile(values, history, true)}
       >
-        {(props) => <EditProfileForm {...props} history={history} />}
+        {(props) => (
+          <LoadingWrapper active={fetching}>
+            <EditProfileForm {...props} history={history} />
+          </LoadingWrapper>
+        )}
       </Formik>
     </div>
   );
 };
 
 const mapStateToProps = (state) => ({
-  isAuthenticated: getAuthStatus(state),
   profile: getProfile(state)
 });
 
@@ -114,7 +112,6 @@ const mapDispatchToProps = {
 EditProfileContainer.propTypes = {
   fetching: bool,
   data: object,
-  isAuthenticated: bool,
   getCurrentProfile: func,
   createProfile: func,
   history: object

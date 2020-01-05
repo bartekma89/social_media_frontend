@@ -1,12 +1,11 @@
 import React from 'react';
 import { Formik } from 'formik';
 import { connect } from 'react-redux';
-import { func, object, bool } from 'prop-types';
-import { Redirect } from 'react-router-dom';
+import { func } from 'prop-types';
+import { useHistory } from 'react-router-dom';
 
 import EducationSchema from './validations/AddEducation.validation';
 import EducationForm from './form/AddEducation.form';
-import { getAuthStatus } from '../../selectors';
 import { addEducation } from '../../actions/profile';
 
 const initialValuesForm = {
@@ -19,10 +18,8 @@ const initialValuesForm = {
   description: ''
 };
 
-const AddEducationContainer = ({ addEducation, isAuthenticated, history }) => {
-  if (!isAuthenticated) {
-    return <Redirect to="/" />;
-  }
+const AddEducationContainer = ({ addEducation }) => {
+  let history = useHistory();
 
   return (
     <div className="container my-3 custom-container">
@@ -41,20 +38,11 @@ const AddEducationContainer = ({ addEducation, isAuthenticated, history }) => {
 };
 
 AddEducationContainer.propTypes = {
-  addEducation: func,
-  isAuthenticated: bool,
-  history: object
+  addEducation: func
 };
-
-const mapStateToProps = (state) => ({
-  isAuthenticated: getAuthStatus(state)
-});
 
 const mapDispatchToProps = {
   addEducation
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(AddEducationContainer);
+export default connect(null, mapDispatchToProps)(AddEducationContainer);

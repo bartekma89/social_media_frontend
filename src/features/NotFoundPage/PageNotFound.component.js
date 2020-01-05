@@ -1,8 +1,9 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { NavLink, Button } from "reactstrap";
+import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { NavLink, Button } from 'reactstrap';
 
-const PageNotFound = ({ location }) => {
+const PageNotFound = () => {
+  let location = useLocation();
   return (
     <div className="text-center">
       <h2>No match found for</h2>

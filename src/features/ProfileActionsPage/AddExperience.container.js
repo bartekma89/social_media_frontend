@@ -1,11 +1,11 @@
 import React from 'react';
 import { Formik } from 'formik';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { func } from 'prop-types';
+import { useHistory } from 'react-router-dom';
 
 import ExperienceSchema from './validations/AddExperience.validation';
 import ExperienceForm from './form/AddExperience.form';
-import { getAuthStatus } from '../../selectors';
 import { addExperience } from '../../actions/profile';
 
 const initialValuesForm = {
@@ -18,10 +18,8 @@ const initialValuesForm = {
   description: ''
 };
 
-const AddExperience = ({ isAuthenticated, addExperience, history }) => {
-  if (!isAuthenticated) {
-    return <Redirect to="/" />;
-  }
+const AddExperience = ({ addExperience }) => {
+  let history = useHistory();
 
   return (
     <div className="container my-3 custom-container">
@@ -41,15 +39,12 @@ const AddExperience = ({ isAuthenticated, addExperience, history }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  isAuthenticated: getAuthStatus(state)
-});
-
 const mapDispatchToProps = {
   addExperience
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(AddExperience);
+AddExperience.propTypes = {
+  addExperience: func
+};
+
+export default connect(null, mapDispatchToProps)(AddExperience);

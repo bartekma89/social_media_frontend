@@ -16,6 +16,7 @@ import AddEducation from './features/ProfileActionsPage/AddEducation.container';
 import AddExperience from './features/ProfileActionsPage/AddExperience.container';
 import Profiles from './features/ProfilesPage/Profiles.container';
 import Profile from './features/ProfilePage/Profile.container';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute.component';
 
 import { loadUser } from './actions/auth';
 import { setAuthToken } from './helpers';
@@ -37,17 +38,39 @@ const App = () => {
         <div className="app">
           <Navigation>
             <Switch>
-              <Route exact path="/" component={Landing} />
-              <Route path="/login" component={Login} />
-              <Route path="/register" component={Register} />
-              <Route path="/dashboard" component={Dashboard} />
-              <Route path="/create-profile" component={CreateProfile} />
-              <Route path="/edit-profile" component={EditProfile} />
-              <Route path="/add-education" component={AddEducation} />
-              <Route path="/add-experience" component={AddExperience} />
-              <Route path="/profiles" component={Profiles} />
-              <Route path="/profile/:id" component={Profile} />
-              <Route component={PageNotFound} />
+              <Route exact path="/">
+                <Landing />
+              </Route>
+              <Route path="/login">
+                <Login />
+              </Route>
+              <Route path="/register">
+                <Register />
+              </Route>
+              <PrivateRoute path="/dashboard">
+                <Dashboard />
+              </PrivateRoute>
+              <PrivateRoute path="/create-profile">
+                <CreateProfile />
+              </PrivateRoute>
+              <PrivateRoute path="/edit-profile">
+                <EditProfile />
+              </PrivateRoute>
+              <PrivateRoute path="/add-education">
+                <AddEducation />
+              </PrivateRoute>
+              <PrivateRoute path="/add-experience">
+                <AddExperience />
+              </PrivateRoute>
+              <Route path="/profiles">
+                <Profiles />
+              </Route>
+              <Route path="/profile/:id">
+                <Profile />
+              </Route>
+              <Route>
+                <PageNotFound />
+              </Route>
             </Switch>
           </Navigation>
           <Footer />
