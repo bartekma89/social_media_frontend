@@ -1,3 +1,6 @@
+import { persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+
 import { ACTIONS } from '../actions/type';
 
 const initialState = {
@@ -7,7 +10,13 @@ const initialState = {
   user: null
 };
 
-export default (state = initialState, action) => {
+const persistConfig = {
+  key: 'auth',
+  storage,
+  blacklist: ['user']
+};
+
+const authReducer = (state = initialState, action) => {
   const { type, payload } = action;
   switch (type) {
     case ACTIONS.LOAD_USER:
@@ -41,3 +50,5 @@ export default (state = initialState, action) => {
       return state;
   }
 };
+
+export default persistReducer(persistConfig, authReducer);

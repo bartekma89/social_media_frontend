@@ -4,7 +4,7 @@ const reducerFactory = ({ name }) => {
   return (state = initialState, action) => {
     switch (action.type) {
       case `${name}_PENDING`:
-        return { ...state, fetching: true };
+        return { ...state, intact: false, fetching: true };
       case `${name}_FULFILLED`:
         return {
           ...state,

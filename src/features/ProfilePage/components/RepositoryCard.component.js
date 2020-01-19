@@ -20,6 +20,20 @@ const RepositoryCard = ({ repo }) => {
     }
   };
 
+  const renderBadges = () => (
+    <>
+      {fork && (
+        <Badge className="mr-2" color="info">
+          Fork
+        </Badge>
+      )}
+      <Badge className="mr-2" color="dark">
+        {repo.private ? 'Private' : 'Public'}
+      </Badge>
+      {langChoice(language)}
+    </>
+  );
+
   return (
     <CardBody className="text-center text-md-left">
       <div>
@@ -29,15 +43,7 @@ const RepositoryCard = ({ repo }) => {
           </a>
         </h4>
         {!isNil(description) && <p>{description}</p>}
-        {fork && (
-          <Badge className="mr-2" color="info">
-            Fork
-          </Badge>
-        )}
-        <Badge className="mr-2" color="dark">
-          {repo.private ? 'Private' : 'Public'}
-        </Badge>
-        {langChoice(language)}
+        {renderBadges()}
       </div>
     </CardBody>
   );

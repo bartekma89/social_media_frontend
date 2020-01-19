@@ -1,10 +1,15 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { isNil, get, isEmpty, orderBy } from 'lodash';
-import { object, func } from 'prop-types';
+import { object, func, bool } from 'prop-types';
 
 import { getCurrentProfile, deleteAccount } from '../../actions/profile';
-import { getProfile, getAuthUser, getProfileError } from '../../selectors';
+import {
+  getProfile,
+  getAuthUser,
+  getProfileError,
+  getProfileRehydratedStatus
+} from '../../selectors';
 import LoadingWrapper from '../../components/LoadingWrapper/LoadingWrapper.component';
 import NoProfile from './components/NoProfile.component';
 import DashboardActions from './components/DashboardActions.component';
@@ -20,7 +25,8 @@ const Dashboard = ({
   profile,
   user,
   error,
-  deleteAccount
+  deleteAccount,
+  profileRehydratedStatus
 }) => {
   useEffect(() => {
     getCurrentProfile();
@@ -33,34 +39,37 @@ const Dashboard = ({
   const educationOrderByTo = orderBy(education, ['to'], ['desc']);
   const experienceOrderByTo = orderBy(experience, ['to'], ['desc']);
 
+  const { fetching, intact } = profile;
+
   return (
     <div className="container custom-container m-3 mx-auto">
       <div className="text-xs-center-custom">
-        <LoadingWrapper active={profile.fetching}>
-          <Alert />
-          <h1 className="large text-primary">Dashboard</h1>
-          {!isNil(user) && (
-            <p className="lead mt-3 mb-2">Welcome {get(user, 'username')}</p>
-          )}
-          {isNil(profileData) ? (
-            <NoProfile error={errorMessage} />
-          ) : (
-            <>
-              <DashboardActions />
-              {!isEmpty(education) && (
-                <Education education={educationOrderByTo} />
-              )}
-              {!isEmpty(experience) && (
-                <Experience experience={experienceOrderByTo} />
-              )}
-
-              <ProfileDelete
-                userName={get(user, 'username')}
-                handleDeleteProfile={deleteAccount}
-              />
-            </>
-          )}
-        </LoadingWrapper>
+        <Alert />
+        <h1 className="large text-primary">Dashboard</h1>
+        {!isNil(user) && (
+          <p className="lead mt-3 mb-2">Welcome {get(user, 'username')}</p>
+        )}
+        {profileRehydratedStatus && (
+          <LoadingWrapper active={intact || fetching}>
+            {isNil(profileData) ? (
+              <NoProfile error={errorMessage} />
+            ) : (
+              <>
+                <DashboardActions />
+                {!isEmpty(education) && (
+                  <Education education={educationOrderByTo} />
+                )}
+                {!isEmpty(experience) && (
+                  <Experience experience={experienceOrderByTo} />
+                )}
+                <ProfileDelete
+                  userName={get(user, 'username')}
+                  handleDeleteProfile={deleteAccount}
+                />
+              </>
+            )}
+          </LoadingWrapper>
+        )}
       </div>
     </div>
   );
@@ -69,7 +78,8 @@ const Dashboard = ({
 const mapStateToProps = (state) => ({
   profile: getProfile(state),
   user: getAuthUser(state),
-  error: getProfileError(state)
+  error: getProfileError(state),
+  profileRehydratedStatus: getProfileRehydratedStatus(state)
 });
 
 const mapDispatchToProps = {
@@ -82,7 +92,8 @@ Dashboard.propTypes = {
   profile: object,
   error: object,
   user: object,
-  deleteAccount: func
+  deleteAccount: func,
+  profileRehydratedStatus: bool
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

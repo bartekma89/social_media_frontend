@@ -4,11 +4,17 @@ export const getAuth = (state) => get(state, 'auth');
 
 export const getAuthStatus = (state) => get(state, 'auth.isAuthenticated');
 
+export const getAuthRehydratedStatus = (state) =>
+  get(state, 'auth.isAuthenticated._persist.rehydrated');
+
 export const getAuthUser = (state) => get(state, 'auth.user');
 
 export const getAuthLoading = (state) => get(state, 'auth.loading');
 
 export const getProfile = (state) => get(state, 'profile');
+
+export const getProfileRehydratedStatus = (state) =>
+  get(state, 'profile._persist.rehydrated');
 
 export const getProfileError = (state) => get(state, 'profile.error');
 

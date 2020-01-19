@@ -23,6 +23,7 @@ export default (BaseCmp) => {
 
     render() {
       const { isLoading, isAuthenticated } = this.props;
+
       return (
         <LoadingWrapper active={isLoading}>
           {!isAuthenticated ? <BaseCmp {...this.props} /> : null}

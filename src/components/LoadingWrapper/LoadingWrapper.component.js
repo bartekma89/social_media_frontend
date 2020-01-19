@@ -1,26 +1,18 @@
 import React from 'react';
 import { bool, oneOfType, node, element, number } from 'prop-types';
 
-import './Loader.scss';
+import Spinner from '../Spinner/Spinner.component';
 
 const LoadingWrapper = ({ active, size, children }) => {
   let result;
 
   if (active) {
-    result = (
-      <div className="d-flex justify-content-center">
-        <svg className="donut" width={size} height={size} />
-      </div>
-    );
+    result = <Spinner size={size} />;
   } else {
     result = children;
   }
 
   return result;
-};
-
-LoadingWrapper.defaultProps = {
-  size: 96
 };
 
 LoadingWrapper.propTypes = {

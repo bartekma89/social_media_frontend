@@ -48,6 +48,16 @@ const Navigation = (props) => {
           Developers
         </NavLink>
       </NavItem>
+      <NavItem>
+        <NavLink tag={Link} to="/post" className="nav-link">
+          Post
+        </NavLink>
+      </NavItem>
+      <NavItem>
+        <NavLink tag={Link} to="/dashboard" className="nav-link">
+          Dashboard
+        </NavLink>
+      </NavItem>
       <NavItem onClick={props.logout}>
         <NavLink tag={Link} to="/">
           Logout

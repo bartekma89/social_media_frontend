@@ -29,7 +29,7 @@ const initialValuesForm = {
 };
 
 const EditProfileContainer = ({
-  profile: { fetching, data },
+  profile: { intact, fetching, data },
   getCurrentProfile,
   createProfile,
   history
@@ -41,43 +41,27 @@ const EditProfileContainer = ({
   }, [getCurrentProfile]);
 
   useEffect(() => {
+    const hasData = (name) => intact || fetching || isNil(get(data, name));
     setFormData({
-      handle: fetching || isNil(get(data, 'handle')) ? '' : get(data, 'handle'),
-      company:
-        fetching || isNil(get(data, 'company')) ? '' : get(data, 'company'),
-      website:
-        fetching || isNil(get(data, 'website')) ? '' : get(data, 'website'),
-      location:
-        fetching || isNil(get(data, 'location')) ? '' : get(data, 'location'),
-      status: fetching || isNil(get(data, 'status')) ? '' : get(data, 'status'),
-      skills: fetching || isNil(get(data, 'skills')) ? '' : get(data, 'skills'),
-      bio: fetching || isNil(get(data, 'bio')) ? '' : get(data, 'bio'),
-      githubusername:
-        fetching || isNil(get(data, 'githubusername'))
-          ? ''
-          : get(data, 'githubusername'),
-      youtube:
-        fetching || isNil(get(data, 'social.youtube'))
-          ? ''
-          : get(data, 'social.youtube'),
-      twitter:
-        fetching || isNil(get(data, 'social.twitter'))
-          ? ''
-          : get(data, 'social.twitter'),
-      facebook:
-        fetching || isNil(get(data, 'social.facebook'))
-          ? ''
-          : get(data, 'social.facebook'),
-      linkedin:
-        fetching || isNil(get(data, 'social.linkedin'))
-          ? ''
-          : get(data, 'social.linkedin'),
-      instagram:
-        fetching || isNil(get(data, 'social.instagram'))
-          ? ''
-          : get(data, 'social.instagram')
+      handle: hasData('handle') ? '' : get(data, 'handle'),
+      company: hasData('company') ? '' : get(data, 'company'),
+      website: hasData('website') ? '' : get(data, 'website'),
+      location: hasData('location') ? '' : get(data, 'location'),
+      status: hasData('status') ? '' : get(data, 'status'),
+      skills: hasData('skills') ? '' : get(data, 'skills'),
+      bio: hasData('bio') ? '' : get(data, 'bio'),
+      githubusername: hasData('githubusername')
+        ? ''
+        : get(data, 'githubusername'),
+      youtube: hasData('social.youtube') ? '' : get(data, 'social.youtube'),
+      twitter: hasData('social.twitter') ? '' : get(data, 'social.twitter'),
+      facebook: hasData('social.facebook') ? '' : get(data, 'social.facebook'),
+      linkedin: hasData('social.linkedin') ? '' : get(data, 'social.linkedin'),
+      instagram: hasData('social.instagram')
+        ? ''
+        : get(data, 'social.instagram')
     });
-  }, [data, fetching]);
+  }, [data, fetching, intact]);
 
   return (
     <div className="container my-3 custom-container">
@@ -91,7 +75,7 @@ const EditProfileContainer = ({
         onSubmit={(values) => createProfile(values, history, true)}
       >
         {(props) => (
-          <LoadingWrapper active={fetching}>
+          <LoadingWrapper active={intact || fetching}>
             <EditProfileForm {...props} history={history} />
           </LoadingWrapper>
         )}

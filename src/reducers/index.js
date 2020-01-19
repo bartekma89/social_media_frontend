@@ -5,11 +5,13 @@ import profileReducer from './profile.reducer';
 import alertReducer from './alert.reducer';
 import profilesReducer from './profiles.reducer';
 import githubReposReducer from './repos.reducer';
+import postReducer from './post.reducer';
 
 export default combineReducers({
   auth: authReducer,
   profile: profileReducer,
   profiles: profilesReducer,
   repos: githubReposReducer,
-  alert: alertReducer
+  alert: alertReducer,
+  post: postReducer
 });

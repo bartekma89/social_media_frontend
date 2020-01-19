@@ -243,9 +243,6 @@ const ProfileForm = ({ errors, touched, history }) => {
       <Button type="submit" color="primary mr-2">
         Submit
       </Button>
-      <Button className="mr-2 ml-0" type="reset">
-        Reset
-      </Button>
       <Button onClick={() => history.goBack()}>Go Back</Button>
     </Form>
   );
